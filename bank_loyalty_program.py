@@ -55,7 +55,6 @@ plt.rcParams["figure.dpi"] = 100
 
 # MAGIC %md
 # MAGIC ## Ucitavanje podataka
-# MAGIC Korisceni podaci se mogu naci na sajtu https://ods.ai/competitions/x5-retailhero-uplift-modeling/data.
 
 # COMMAND ----------
 
