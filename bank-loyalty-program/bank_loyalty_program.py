@@ -962,44 +962,43 @@ ax2.legend(loc="upper center", bbox_to_anchor=(0.5, -0.20), ncol=1);
 
 # COMMAND ----------
 
-# number of random uplift curves to generate
-#n_random_samples = 100
+ number of random uplift curves to generate
+n_random_samples = 100
 # sample random uplift curves from a uniform distribution
-#uplift_random_samples = np.random.uniform(
-#    low=-1,
-#    high=1,
-#    size=(data_train.y.size, n_random_samples),
-#)
+uplift_random_samples = np.random.uniform(
+    low=-1,
+    high=1,
+    size=(data_train.y.size, n_random_samples),
+)
 # compute uplift curve for each random sample
-#random_uplift_curves = [
-#    uplift_curve(
-#        y_true=data_train.y,
-#        uplift=uplift_random_samples[:, i],
-#        treatment=data_train.treatment,
-#    )
-#    for i in range(n_random_samples)
-#]
-
-# plot
-#fig, ax = plt.subplots(
-#    nrows=2, ncols=1, figsize=(8, 10), sharex=True, layout="constrained"
-#)
+random_uplift_curves = [
+    uplift_curve(
+        y_true=data_train.y,
+        uplift=uplift_random_samples[:, i],
+        treatment=data_train.treatment,
+    )
+    for i in range(n_random_samples)
+]
+ plot
+fig, ax = plt.subplots(
+    nrows=2, ncols=1, figsize=(8, 10), sharex=True, layout="constrained"
+)
 # perfect uplift curve
-#sns.lineplot(
-#    x=num_all,
-#    y=curve_values,
-#    color="C2",
-#    marker="o",
-#    markersize=10,
-#    label="perfect uplift curve",
-#    ax=ax[1],
-#)
-# random uplift curves
-#for x, y in random_uplift_curves:
-#    ax[0].plot(x, y, color="C1", alpha=0.05)
-#    ax[1].plot(x, y, color="C1", alpha=0.05)
-#ax[0].set(title="Random Uplift Curves", ylabel="Number of incremental outcome")
-#ax[1].set(xlabel="Number targeted", ylabel="Number of incremental outcome");
+sns.lineplot(
+    x=num_all,
+    y=curve_values,
+    color="C2",
+    marker="o",
+    markersize=10,
+    label="perfect uplift curve",
+    ax=ax[1],
+)
+ random uplift curves
+for x, y in random_uplift_curves:
+    ax[0].plot(x, y, color="C1", alpha=0.05)
+    ax[1].plot(x, y, color="C1", alpha=0.05)
+ax[0].set(title="Random Uplift Curves", ylabel="Number of incremental outcome")
+ax[1].set(xlabel="Number targeted", ylabel="Number of incremental outcome");
 
 # COMMAND ----------
 
@@ -1008,32 +1007,32 @@ ax2.legend(loc="upper center", bbox_to_anchor=(0.5, -0.20), ncol=1);
 
 # COMMAND ----------
 
-#fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(15, 15), layout="constrained")
+fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(15, 15), layout="constrained")
 # in-sample
-#for i, data_out_train in enumerate(train_pred):
-#    ax = axes[i, 0]
-#    plot_qini_curve(
-#        y_true=data_train.y,
-#        uplift=data_out_train.y_pred.flatten(),
-#        treatment=data_train.treatment,
-#        perfect=True,
-#        ax=ax,
-#    )
-#    ax.set(title=f"In-sample predictions ({data_out_train.meta_learner_name})")
+for i, data_out_train in enumerate(train_pred):
+    ax = axes[i, 0]
+    plot_qini_curve(
+        y_true=data_train.y,
+        uplift=data_out_train.y_pred.flatten(),
+        treatment=data_train.treatment,
+        perfect=True,
+        ax=ax,
+    )
+    ax.set(title=f"In-sample predictions ({data_out_train.meta_learner_name})")
 
 # out-of-sample
-#for j, data_out_val in enumerate(val_pred):
-#    ax = axes[j, 1]
-#    plot_qini_curve(
-#        y_true=data_val.y,
-#        uplift=data_out_val.y_pred.flatten(),
-#        treatment=data_val.treatment,
-#        perfect=True,
-#        ax=ax,
-#    )
-#    ax.set(title=f"Out-sample predictions ({data_out_val.meta_learner_name})")
+for j, data_out_val in enumerate(val_pred):
+    ax = axes[j, 1]
+    plot_qini_curve(
+        y_true=data_val.y,
+        uplift=data_out_val.y_pred.flatten(),
+        treatment=data_val.treatment,
+        perfect=True,
+        ax=ax,
+    )
+    ax.set(title=f"Out-sample predictions ({data_out_val.meta_learner_name})")
 
-#fig.suptitle("Qini Curves", fontsize=24);
+fig.suptitle("Qini Curves", fontsize=24);
 
 # COMMAND ----------
 
